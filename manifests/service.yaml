@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keshaptest1
+  namespace: namespace-workflow-1677867852547
+spec:
+  type: LoadBalancer
+  selector:
+    app: keshaptest1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
