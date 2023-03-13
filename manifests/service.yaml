@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: keshaptest1
-  namespace: namespace-workflow-1677867852547
+  name: gomodule
+  namespace: namespace-workflow-1678734449814
 spec:
   type: LoadBalancer
   selector:
-    app: keshaptest1
+    app: gomodule
   ports:
     - protocol: TCP
       port: 80

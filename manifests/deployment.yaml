@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keshaptest1
+  name: gomodule
   labels:
-    app: keshaptest1
-  namespace: namespace-workflow-1677867852547
+    app: gomodule
+  namespace: namespace-workflow-1678734449814
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: keshaptest1
+      app: gomodule
   template:
     metadata:
       labels:
-        app: keshaptest1
+        app: gomodule
     spec:
       containers:
-        - name: keshaptest1
-          image: acrworkflow1677867852547.azurecr.io/image-workflow-1677867852547:latest
+        - name: gomodule
+          image: acrworkflow1678734449814.azurecr.io/image-workflow-1678734449814:latest
           ports:
             - containerPort: 80
