@@ -2,7 +2,7 @@ FROM golang:1.20
 ENV PORT 80
 EXPOSE 80
 
-WORKDIR /
+WORKDIR /go/src/app
 COPY . .
 
 RUN go mod vendor

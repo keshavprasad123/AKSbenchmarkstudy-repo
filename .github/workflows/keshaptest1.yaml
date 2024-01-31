@@ -5,14 +5,14 @@ name: keshaptest1
             - main
     workflow_dispatch: {}
 env:
-    ACR_RESOURCE_GROUP: keshaptestdevx_group
-    AZURE_CONTAINER_REGISTRY: acrworkflow1677867852547
-    CLUSTER_NAME: keshaptestdevx
-    CLUSTER_RESOURCE_GROUP: keshaptestdevx_group
-    CONTAINER_NAME: image-workflow-1677867852547
+    ACR_RESOURCE_GROUP: keshaptest1
+    AZURE_CONTAINER_REGISTRY: acrworkflow1706666736840
+    CLUSTER_NAME: test1
+    CLUSTER_RESOURCE_GROUP: keshaptest1
+    CONTAINER_NAME: image-workflow-1706666736840
     DEPLOYMENT_MANIFEST_PATH: |
-        ./manifests/deployment.yaml
-        ./manifests/service.yaml
+        manifests/deployment.yaml
+        manifests/service.yaml
 jobs:
     buildImage:
         permissions:
@@ -21,14 +21,14 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: azure/login@v1.4.3
+            - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
               name: Azure login
               with:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
             - name: Build and push image to ACR
-              run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ./Dockerfile ./
+              run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f Dockerfile ./
     deploy:
         permissions:
             actions: read
@@ -39,7 +39,7 @@ jobs:
             - buildImage
         steps:
             - uses: actions/checkout@v3
-            - uses: azure/login@v1.4.3
+            - uses: azure/login@92a5484dfaf04ca78a94597f4f19fea633851fa2
               name: Azure login
               with:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -62,4 +62,4 @@ jobs:
                 action: deploy
                 images: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
                 manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
-                namespace: namespace-workflow-1677867852547
+                namespace: namespace-workflow-1706666736840
